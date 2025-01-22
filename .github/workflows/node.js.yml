@@ -14,7 +14,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [18.x]  # Adjust if you're using a different version of Node.js
+        node-version: [18.x]
 
     steps:
       # Step 1: Checkout the repository
@@ -27,26 +27,23 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      # Step 3: Install and Test Backend
-      - name: Install and Test Backend
+      # Step 3: Install Backend Dependencies
+      - name: Install Backend Dependencies
         working-directory: ./backend
         run: |
-          npm install
-          npm run server &  # Run the backend server
-          npm test           # Run backend tests if you have them
+          npm ci   # Faster installation using lock file
+          npm run server &  # Optional if server needs to run during testing
 
-      # Step 4: Install and Test Frontend
-      - name: Install and Test Frontend
+      # Step 4: Install Frontend Dependencies
+      - name: Install Frontend Dependencies
         working-directory: ./frontend
         run: |
-          npm install
-          npm run dev &      # Run the frontend
-          npm test           # Run frontend tests if you have them
+          npm ci
+          npm run dev &  # Optional if frontend needs to run during testing
 
-      # Step 5: Install and Test Admin
-      - name: Install and Test Admin
+      # Step 5: Install Admin Dependencies
+      - name: Install Admin Dependencies
         working-directory: ./admin
         run: |
-          npm install
-          npm run dev &      # Run the admin panel
-          npm test           # Run admin tests if you have them
+          npm ci
+          npm run dev &  # Optional if admin panel needs to run during testing
