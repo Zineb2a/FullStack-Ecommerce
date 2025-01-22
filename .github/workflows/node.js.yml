@@ -19,7 +19,7 @@ jobs:
     steps:
       # Step 1: Checkout the repository
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v3  # Ensure this step is BEFORE setup-node
 
       # Step 2: Set up Node.js and Cache Dependencies for Backend
       - name: Set up Node.js (Backend)
