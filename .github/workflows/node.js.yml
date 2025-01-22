@@ -14,36 +14,51 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [18.x]  # Use the appropriate Node.js version for your projects
+        node-version: [18.x]
 
     steps:
       # Step 1: Checkout the repository
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # Step 2: Set up Node.js
-      - name: Set up Node.js
+      # Step 2: Set up Node.js and Cache Dependencies for Backend
+      - name: Set up Node.js (Backend)
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+          cache-dependency-path: './backend/package-lock.json'
 
-      # Step 3: Install Backend Dependencies
       - name: Install Backend Dependencies
         working-directory: ./backend
         run: |
           npm install
-          npm run server &  # Optional: Start the backend server during CI/CD
+          npm run server &
 
-      # Step 4: Install Frontend Dependencies
+      # Step 3: Set up Node.js and Cache Dependencies for Frontend
+      - name: Set up Node.js (Frontend)
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+          cache-dependency-path: './frontend/package-lock.json'
+
       - name: Install Frontend Dependencies
         working-directory: ./frontend
         run: |
           npm install
-          npm run dev &  # Optional: Start the frontend during CI/CD
+          npm run dev &
 
-      # Step 5: Install Admin Dependencies
+      # Step 4: Set up Node.js and Cache Dependencies for Admin
+      - name: Set up Node.js (Admin)
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+          cache-dependency-path: './admin/package-lock.json'
+
       - name: Install Admin Dependencies
         working-directory: ./admin
         run: |
           npm install
-          npm run dev &  # Optional: Start the admin panel during CI/CD
+          npm run dev &
