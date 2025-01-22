@@ -1,0 +1,15 @@
+{
+  "name": "aura_ecom",
+  "version": "1.0.0",
+  "description": "Aura is a full-stack e-commerce platform that showcases and manages artisanal handcrafted products such as soaps, candles and more. The application is divided into three components: - **User Storefront**: A customer-facing platform to browse and purchase products and track orders. - **Admin Panel**: A management dashboard for product and order administration. - **Backend API**: A server-side API to handle data operations. <img width=\"1483\" alt=\"Screenshot 2024-12-16 at 15 16 25\" src=\"https://github.com/user-attachments/assets/739d04ee-5ef7-4629-8c51-74263f85db94\" />",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.7"
+  }
+}
