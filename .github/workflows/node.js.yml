@@ -14,51 +14,51 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [18.x]
+        node-version: [18.x]  # Update the Node.js version if needed
 
     steps:
       # Step 1: Checkout the repository
       - name: Checkout repository
-        uses: actions/checkout@v3  # Ensure this step is BEFORE setup-node
+        uses: actions/checkout@v4
 
-      # Step 2: Set up Node.js and Cache Dependencies for Backend
+      # Backend Setup
       - name: Set up Node.js (Backend)
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-          cache-dependency-path: './backend/package-lock.json'
+          cache-dependency-path: ./backend/package-lock.json
 
-      - name: Install Backend Dependencies
+      - name: Install and Test Backend
         working-directory: ./backend
         run: |
-          npm install
-          npm run server &
+          npm ci
+          npm test
 
-      # Step 3: Set up Node.js and Cache Dependencies for Frontend
+      # Frontend Setup
       - name: Set up Node.js (Frontend)
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-          cache-dependency-path: './frontend/package-lock.json'
+          cache-dependency-path: ./frontend/package-lock.json
 
-      - name: Install Frontend Dependencies
+      - name: Install and Test Frontend
         working-directory: ./frontend
         run: |
-          npm install
-          npm run dev &
+          npm ci
+          npm test
 
-      # Step 4: Set up Node.js and Cache Dependencies for Admin
+      # Admin Setup
       - name: Set up Node.js (Admin)
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-          cache-dependency-path: './admin/package-lock.json'
+          cache-dependency-path: ./admin/package-lock.json
 
-      - name: Install Admin Dependencies
+      - name: Install and Test Admin
         working-directory: ./admin
         run: |
-          npm install
-          npm run dev &
+          npm ci
+          npm test
